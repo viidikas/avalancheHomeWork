@@ -17,10 +17,10 @@ public class Controller {
     }
 
     @GetMapping("/calculate")
-    public Long calculate(@RequestParam int num1, @RequestParam int num2, @RequestParam String op) {
+    public String calculate(@RequestParam int num1, @RequestParam int num2, @RequestParam String op) {
         if (validatorService.operandValidator(op)) {
-       return calculatorService.calculate(num1, num2, op);
+            return calculatorService.calculate(num1, num2, op);
         } else
-            return null;
+            return "Oops, you have something wrong with the operand!";
     }
 }
