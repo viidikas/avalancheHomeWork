@@ -1,6 +1,7 @@
 package com.example.avalanche.rest;
 
 import com.example.avalanche.services.CalculatorService;
+import com.example.avalanche.services.ValidatorService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 public class Controller {
 
     private final CalculatorService calculatorService = new CalculatorService();
+    private final ValidatorService validatorService = new ValidatorService();
 
     @GetMapping("/hello")
     public String helloWorld() {
@@ -16,6 +18,9 @@ public class Controller {
 
     @GetMapping("/calculate")
     public Long calculate(@RequestParam int num1, @RequestParam int num2, @RequestParam String op) {
+        if (validatorService.operandValidator(op)) {
        return calculatorService.calculate(num1, num2, op);
+        } else
+            return null;
     }
 }
